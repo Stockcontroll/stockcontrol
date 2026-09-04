@@ -2,14 +2,15 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Pantry</title>
+<title>Only Fresh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Pantry">
+<meta name="apple-mobile-web-app-title" content="Only Fresh">
 <meta name="theme-color" content="#E4ECFF">
 <link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -19,7 +20,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Pantry">
+<meta name="apple-mobile-web-app-title" content="Only Fresh">
 <meta name="theme-color" content="#E4ECFF">
 <link rel="stylesheet" href="ds/colors_and_type.css">
 <script src="ds/bundle.js"></script>
@@ -31,8 +32,8 @@
 
 <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
 <div style="background:#E4ECFF;padding:calc(env(safe-area-inset-top) + 20px) 20px 24px;display:flex;flex-direction:column;gap:20px;flex:none" data-screen-label="Home">
-<div style="display:flex;justify-content:space-between;align-items:baseline">
-<div style="font:700 11px/14px Arial;text-transform:uppercase;color:#2E69FF">Pantry · {{ todayLabel }}</div>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;align-items:center;gap:8px"><svg width="26" height="26" viewBox="0 0 180 180" style="display:block;flex:none"><g fill="none" stroke="#2E69FF" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter"><circle cx="90" cy="106" r="58"></circle><path d="M90 50c-3 28-3 60 0 90"></path><path d="M94 42c16-26 40-30 54-20-8 18-28 30-54 20z"></path></g></svg><div style="font:700 15px/18px Arial;letter-spacing:-0.025em;color:#000">Only Fresh</div><div style="font:700 11px/14px Arial;text-transform:uppercase;color:#2E69FF;margin-left:4px">{{ todayLabel }}</div></div>
 <div style="display:flex;gap:16px;font:400 13px/16px Arial">
 <div onClick="{{ goHome }}" style="cursor:pointer;padding:6px 0">{{ homeLabel }}</div>
 <div onClick="{{ goExpiring }}" style="cursor:pointer;padding:6px 0">{{ expiringLabel }}</div>
@@ -499,10 +500,10 @@ class Component extends DCLogic {
   // backup
   async exportData() {
     const payload = JSON.stringify({ app: 'pantry-expiry', exported: iso(today()), items: this.state.items }, null, 2);
-    const name = `pantry-backup-${iso(today())}.json`;
+    const name = `only-fresh-backup-${iso(today())}.json`;
     const file = new File([payload], name, { type: 'application/json' });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file], title: 'Pantry backup' }); this.setState({ backupNote: `Shared ${this.state.items.length} items.` }); return; } catch (e) { if (e.name === 'AbortError') return; }
+      try { await navigator.share({ files: [file], title: 'Only Fresh backup' }); this.setState({ backupNote: `Shared ${this.state.items.length} items.` }); return; } catch (e) { if (e.name === 'AbortError') return; }
     }
     const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name; document.body.appendChild(a); a.click(); a.remove();
     this.setState({ backupNote: `Exported ${this.state.items.length} items to ${name}.` });
@@ -528,7 +529,7 @@ class Component extends DCLogic {
         }
         const skipped = incoming.length - added.length;
         this.commit([...s.items, ...added], id, { backupNote: added.length ? `Imported ${added.length} new item${added.length === 1 ? '' : 's'}${skipped ? `, skipped ${skipped} already in stock` : ''}.` : 'Nothing new to import — all items already in stock.' });
-      } catch (err) { this.setState({ backupNote: 'That file is not a Pantry backup.' }); }
+      } catch (err) { this.setState({ backupNote: 'That file is not an Only Fresh backup.' }); }
     };
     r.readAsText(f);
   }
