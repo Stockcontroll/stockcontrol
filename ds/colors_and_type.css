@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Gibson Dunn — Colors & Typography Foundation
+   --------------------------------------------------------------------------
+   Source of truth for the brand: extracted from the firm's PowerPoint and
+   Word brand guidelines (January 2026) and the Master templates (April 2026).
+
+   The system is austere on purpose: a single typeface (Arial), one accent
+   color (Gibson Dunn blue #2E69FF), and a black/white/gray neutral scale.
+   Accent colors (red, orange, yellow, green, purple) MUST NOT be used as
+   design elements; they're only allowed when strictly required to explain
+   data in an infographic.
+   ========================================================================== */
+
+:root {
+  /* ----- Brand primaries ------------------------------------------------ */
+  --gd-black:    #000000;   /* Primary text, lines, wordmark */
+  --gd-white:    #FFFFFF;   /* Reverse text on dark backgrounds */
+  --gd-blue:     #2E69FF;   /* The Gibson Dunn blue. Emphasis only. */
+
+  /* ----- Brand neutrals (secondary) ------------------------------------- */
+  --gd-gray-600: #666666;   /* Secondary body text, captions */
+  --gd-gray-400: #CCCCCC;   /* Borders, dividers (note: guidelines list "CCCCC" — interpreted) */
+  --gd-gray-300: #D9D9D9;   /* Table row banding, soft fills */
+  --gd-gray-100: #F2F2F2;   /* Page tint, callout backgrounds */
+
+  /* ----- Semantic foreground ------------------------------------------- */
+  --fg-1:        var(--gd-black);     /* Primary text */
+  --fg-2:        var(--gd-gray-600);  /* Secondary text */
+  --fg-3:        var(--gd-gray-400);  /* Tertiary / disabled */
+  --fg-accent:   var(--gd-blue);      /* Emphasis only — sparingly */
+  --fg-inverse:  var(--gd-white);
+
+  /* ----- Semantic backgrounds ------------------------------------------ */
+  --bg-page:     var(--gd-white);
+  --bg-tint:     var(--gd-gray-100);
+  --bg-band:     var(--gd-gray-300);
+  --bg-rule:     var(--gd-gray-400);
+  --bg-dark:     var(--gd-black);
+  --bg-accent:   var(--gd-blue);
+
+  /* ----- Lines (vertical only — horizontal lines are forbidden) -------- */
+  --rule-color:  var(--gd-black);
+  --rule-color-on-dark: var(--gd-white);
+  --rule-weight: 1.5px;     /* Thin, always vertical */
+
+  /* ----- Type family ---------------------------------------------------
+     The brand font is Arial. Two weights only — Regular (400) and Bold
+     (700). No italics, no alternates, no display faces. Arial ships
+     natively on Windows / macOS / iOS / Android, so no webfont is bundled.
+     The single "sans-serif" generic is the only fallback — kept as a
+     safety net for headless renderers where Arial is absent.
+     If you need a true Arial WOFF (e.g. for a Linux PDF render or PPTX
+     export), drop the file at `assets/fonts/arial.woff2` and add an
+     `@font-face` block below. See README "Fonts" section. */
+  --font-arial: Arial, sans-serif;
+  --font-sans:  var(--font-arial);
+  --font-mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ----- Type scale (px @ 1920×1080 slide canvas)
+     Mapped 1:1 from the PowerPoint guidelines size & spacing chart.
+     line-height stored as multipliers derived from the source chart. */
+  --fs-display:    80px;  --lh-display:   75px;   /* Cover headings */
+  --fs-h1:         45px;  --lh-h1:        45px;   /* Section dividers */
+  --fs-h2:         30px;  --lh-h2:        31px;   /* Slide title */
+  --fs-h3:         20px;  --lh-h3:        22px;   /* Subhead */
+  --fs-lead:       17px;  --lh-lead:      19px;   /* Lede / large body */
+  --fs-body:       15px;  --lh-body:      18px;   /* Standard body */
+  --fs-body-sm:    14px;  --lh-body-sm:   17px;
+  --fs-caption:    13px;  --lh-caption:   16px;   /* Captions, footnotes */
+  --fs-micro:      12px;  --lh-micro:     15px;   /* Footers, sources */
+  --fs-mini:      10.5px; --lh-mini:    13.5px;   /* Disclaimer / legal */
+
+  /* ----- Letter-spacing tokens
+     Brand uses condensed character spacing across the scale. PowerPoint
+     "0.5 condensed" ≈ -0.5pt = -0.025em; "0.3 condensed" ≈ -0.015em. */
+  --ls-condensed-strong: -0.025em;  /* fs-display through fs-body-sm */
+  --ls-condensed-soft:   -0.015em;  /* fs-caption and below */
+  --ls-tracked:           0.04em;   /* All-caps headers (cover/dividers) */
+
+  /* ----- Weight tokens (Arial has Regular and Bold only) --------------- */
+  --fw-regular: 400;   /* @kind font */
+  --fw-bold:    700;   /* @kind font */
+
+  /* ----- Spacing scale (slide-friendly, in px) ------------------------- */
+  --sp-1:   4px;
+  --sp-2:   8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ----- Indent scale (Word/PPT bullets, from guidelines) -------------- */
+  --indent-1: 0.22in; /* @kind spacing */ /* fs 21–25 first level */
+  --indent-2: 0.19in; /* @kind spacing */ /* fs 13–20 first level */
+  --indent-3: 0.13in; /* @kind spacing */ /* fs  8–12 first level */
+
+  /* ----- Radii ---------------------------------------------------------
+     The brand is square. Cards, callouts, and image masks are crisp 0px.
+     A small 2px is allowed only on UI affordances like form fields. */
+  --radius-0: 0;
+  --radius-1: 2px;
+
+  /* ----- Elevation ----------------------------------------------------
+     The brand has no shadow system. Hierarchy is conveyed with color blocks
+     (full-bleed black or blue panels) and vertical rules. We ship a single
+     subtle shadow for screen UI affordances only. */
+  --shadow-ui: 0 1px 2px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+}
+
+/* ==========================================================================
+   Base element styles
+   ========================================================================== */
+
+html {
+  font-family: var(--font-sans);
+  color: var(--fg-1);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-size: var(--fs-body);
+  line-height: calc(var(--lh-body) / var(--fs-body));
+  letter-spacing: var(--ls-condensed-strong);
+  font-weight: var(--fw-regular);
+}
+
+/* All copy is left-aligned by default — brand rule. */
+p, h1, h2, h3, h4, h5, h6, ul, ol, dl, blockquote {
+  text-align: left;
+  margin: 0;
+}
+
+/* ----- Headings ---------------------------------------------------------- */
+.gd-display,
+h1.gd-display {
+  font: var(--fw-bold) var(--fs-display)/calc(var(--lh-display) / var(--fs-display)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+  text-transform: uppercase;          /* Cover + section dividers only */
+  color: var(--fg-1);
+}
+
+h1, .gd-h1 {
+  font: var(--fw-bold) var(--fs-h1)/calc(var(--lh-h1) / var(--fs-h1)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+h2, .gd-h2 {
+  font: var(--fw-bold) var(--fs-h2)/calc(var(--lh-h2) / var(--fs-h2)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+  color: var(--fg-1);
+}
+
+h3, .gd-h3 {
+  font: var(--fw-bold) var(--fs-h3)/calc(var(--lh-h3) / var(--fs-h3)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+  color: var(--fg-1);
+}
+
+/* Blue large/small body header — Word styles "Body Header Large/Small" */
+.gd-body-header-lg {
+  font: var(--fw-bold) 13px/16px var(--font-sans);
+  letter-spacing: var(--ls-condensed-soft);
+  color: var(--fg-accent);
+  text-transform: uppercase;
+}
+.gd-body-header-sm {
+  font: var(--fw-bold) 11px/14px var(--font-sans);
+  letter-spacing: var(--ls-condensed-soft);
+  color: var(--fg-accent);
+  text-transform: uppercase;
+}
+
+/* ----- Body & utilities -------------------------------------------------- */
+p, .gd-body {
+  font: var(--fw-regular) var(--fs-body)/calc(var(--lh-body) / var(--fs-body)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+  color: var(--fg-1);
+}
+
+.gd-lead {
+  font: var(--fw-regular) var(--fs-lead)/calc(var(--lh-lead) / var(--fs-lead)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+}
+
+.gd-caption,
+small {
+  font: var(--fw-regular) var(--fs-caption)/calc(var(--lh-caption) / var(--fs-caption)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-soft);
+  color: var(--fg-2);
+}
+
+.gd-micro {
+  font: var(--fw-regular) var(--fs-micro)/calc(var(--lh-micro) / var(--fs-micro)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-soft);
+  color: var(--fg-2);
+}
+
+.gd-mini {
+  font: var(--fw-regular) var(--fs-mini)/calc(var(--lh-mini) / var(--fs-mini)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-soft);
+  color: var(--fg-2);
+}
+
+/* Bold black inline emphasis OR blue regular inline emphasis.
+   Brand explicitly forbids underlining for emphasis. */
+b, strong, .gd-emph {
+  font-weight: var(--fw-bold);
+  color: var(--fg-1);
+}
+.gd-emph-blue {
+  color: var(--fg-accent);
+  font-weight: var(--fw-regular);
+}
+u, .gd-no-underline { text-decoration: none; }
+
+/* ----- Quotes (Arial Bold black, Arial Regular blue source) -------------- */
+.gd-quote {
+  font: var(--fw-bold) 24px/30px var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+  color: var(--fg-1);
+}
+.gd-quote::before { content: "\201C"; }
+.gd-quote::after  { content: "\201D"; }
+.gd-quote-source {
+  margin-top: var(--sp-3);
+  font: var(--fw-regular) var(--fs-body-sm)/calc(var(--lh-body-sm) / var(--fs-body-sm)) var(--font-sans);
+  letter-spacing: var(--ls-condensed-strong);
+  color: var(--fg-accent);
+}
+
+/* ----- Bullets ----------------------------------------------------------
+   Filled round only. Hollow / square / other markers are forbidden. */
+ul, .gd-bullets {
+  list-style: none;
+  padding-left: 0;
+}
+ul > li, .gd-bullets > li {
+  position: relative;
+  padding-left: var(--indent-2);
+  margin-bottom: var(--sp-1);
+}
+ul > li::before, .gd-bullets > li::before {
+  content: "";
+  position: absolute;
+  left: 0.05in;
+  top: 0.62em;
+  width: 5px; height: 5px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+/* ----- Links ------------------------------------------------------------ */
+a {
+  color: var(--fg-accent);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+a:hover { color: var(--fg-1); }
+
+/* ----- Vertical rules (only allowed orientation) ------------------------ */
+.gd-rule-v {
+  width: var(--rule-weight);
+  background: var(--rule-color);
+  align-self: stretch;
+}
+.gd-rule-v--inverse { background: var(--rule-color-on-dark); }
+
+/* ----- Color blocks (full-bleed dark / blue / tint panels) -------------- */
+.gd-block-dark   { background: var(--bg-dark);    color: var(--fg-inverse); }
+.gd-block-blue   { background: var(--bg-accent);  color: var(--fg-inverse); }
+.gd-block-tint   { background: var(--bg-tint);    color: var(--fg-1); }
+.gd-block-white  { background: var(--bg-page);    color: var(--fg-1); }
+.gd-block-dark .gd-emph,
+.gd-block-blue .gd-emph { color: currentColor; }
+
+/* On dark/blue blocks, switch foreground tokens to white. */
+.gd-block-dark, .gd-block-blue {
+  --fg-1: #FFFFFF;
+  --fg-2: rgba(255,255,255,0.78);
+  --fg-3: rgba(255,255,255,0.55);
+  --fg-accent: #FFFFFF;
+}
+
+/* ----- Selection -------------------------------------------------------- */
+::selection { background: var(--gd-blue); color: var(--gd-white); }
